@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpSession;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -68,8 +70,9 @@ public class BookingController {
         } else if (ticket.getUser() != null && ticket.getUser().getId() != null) {
             ticket.setUser(userService.getById(ticket.getUser().getId()));
         }
+        ticket.setTimestamp(Timestamp.valueOf(LocalDateTime.now()));
         ticketService.save(ticket);
-        return "index";
+        return "main";
     }
 
 }

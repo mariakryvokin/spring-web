@@ -32,8 +32,9 @@
     User email(if registered):<br>
     <@spring.formInput "ticket.user.email"/>
     <@spring.showErrors "<br>"/>
+    <br><br>
     User id(if NOT registered):<br>
-    <@spring.formInput "ticket.user.email"/>
+    <@spring.formInput "ticket.user.id"/>
     <@spring.showErrors "<br>"/>
     <br><br>
     Seat:<br>

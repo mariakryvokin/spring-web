@@ -47,7 +47,7 @@ public class AdminController {
     @PostMapping("/event")
     public String addEvent(@ModelAttribute Event event) {
         eventService.save(event);
-        return "index";
+        return "main";
     }
 
     @GetMapping("/schedule/event")
@@ -79,7 +79,7 @@ public class AdminController {
             List<Event> events = objectMapper.readValue(files[1].getBytes(), objectMapper.getTypeFactory().constructCollectionType(List.class, Event.class));
             eventService.saveAll(events);
         }
-        return "index";
+        return "main";
     }
 
 }
