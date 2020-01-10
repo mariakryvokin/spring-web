@@ -62,7 +62,7 @@
     <@spring.showErrors "<br>"/>
     <br><br>
     User id(NOT registered):<br>
-    <@spring.formInput "user.email"/>
+    <@spring.formInput "user.id"/>
     <@spring.showErrors "<br>"/>
     <br><br>
     <input type="submit" value="Submit">

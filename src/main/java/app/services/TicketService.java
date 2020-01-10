@@ -50,4 +50,8 @@ public class TicketService {
     public List<Ticket> getAll(){
         return ticketRepository.findAll();
     }
+
+    public List<Ticket> getCartTicketsByUserIdAndOrderId(Long userId, Long orderId){
+        return ticketRepository.findAllByUser_IdAndOrder_Id(userId,orderId);
+    }
 }

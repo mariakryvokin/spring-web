@@ -3,6 +3,7 @@ package app.controllers;
 import app.models.Role;
 import app.models.User;
 import app.models.enums.RoleEnum;
+import app.services.TicketService;
 import app.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,15 +11,19 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Controller("/user")
+@Controller
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private TicketService ticketService;
 
     private long id =0;
 
@@ -40,9 +45,12 @@ public class UserController {
     }
 
     @GetMapping("/cart")
-    public String cart(@ModelAttribute User user){
+    public String cart(@ModelAttribute User user, Model model){
         if(user!=null && user.getEmail() != null){
-            //TODO get all tickets by user without order id
+            User registeredUser = userService.getUserByEmail(user.getEmail());
+            if(registeredUser != null){
+                model.addAttribute("ticketsToBeBought",ticketService.getCartTicketsByUserIdAndOrderId(registeredUser.getId(), null));
+            }
         }else{
             //TODO get all tickets by generated user id (unregistered user)
         }

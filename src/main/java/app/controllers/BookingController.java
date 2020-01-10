@@ -35,8 +35,10 @@ public class BookingController {
     private UserService userService;
     private long id = 0;
 
+
     @GetMapping("/booking")
     public String bookTicket(Model model) {
+        //TODO synchronize
         Map<EventHasAuditorium, List<Long>> freeSeats = new HashMap<>();
         List<Ticket> tickets = ticketService.getAll();
         Map<EventHasAuditorium, List<Long>> occupiedSeats = tickets.stream().collect(Collectors.groupingBy(Ticket::getEventHasAuditorium, Collectors.mapping(Ticket::getSeat, Collectors.toList())));
@@ -74,5 +76,7 @@ public class BookingController {
         ticketService.save(ticket);
         return "main";
     }
+
+
 
 }

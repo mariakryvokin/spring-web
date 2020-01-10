@@ -4,6 +4,7 @@ import app.models.EventHasAuditorium;
 import app.models.User;
 import app.services.TicketService;
 import app.services.UserService;
+import app.services.discounts.TenthTicketStrategy;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;

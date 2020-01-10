@@ -14,4 +14,6 @@ public interface TicketRepository extends JpaRepository<Ticket,Long> {
 
     @Query(value = "SELECT t.seat FROM tickets t where  t.auditoriums_name = ?1 and t.air_date=?2", nativeQuery = true)
     List<Integer> getAllByAuditoriumNameAndAirDateTime(String auditoriumName, Timestamp airDateTime);
+
+    List<Ticket> findAllByUser_IdAndOrder_Id(Long userId, Long orderId);
 }

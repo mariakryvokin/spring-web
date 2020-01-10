@@ -1,4 +1,4 @@
-package app.services.discounts.filesgeneration;
+package app.services.filegeneration;
 
 import app.config.AppConfig;
 import app.models.Event;
@@ -18,6 +18,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -50,8 +53,9 @@ public class FileGeneration {
         Event firstEvent = new Event("FirstEvent",100.00,Rating.LOW);
         Event secondEvent = new Event("SecondEvent", 200, Rating.HIGH);
         try {
+            Path eventJsonPath = Paths.get("C:\\TMP\\events.json");
             objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
-            objectMapper.writer().writeValue(new File("C:\\TMP\\events.json"), Arrays.asList(firstEvent,secondEvent));
+            objectMapper.writer().writeValue(new File(eventJsonPath.toString()), Arrays.asList(firstEvent,secondEvent));
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -2,10 +2,12 @@ package app.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
+import org.springframework.web.servlet.view.XmlViewResolver;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
 
@@ -29,6 +31,14 @@ public class ViewConfig {
         resolver.setSuffix(".jsp");
         resolver.setViewClass(JstlView.class);
         resolver.setOrder(Integer.MAX_VALUE);
+        return resolver;
+    }
+
+    @Bean
+    public ViewResolver xmlViewResolver() {
+        XmlViewResolver resolver = new XmlViewResolver();
+        resolver.setLocation(new ClassPathResource("views.xml"));
+        resolver.setOrder(Integer.MAX_VALUE-1);
         return resolver;
     }
 

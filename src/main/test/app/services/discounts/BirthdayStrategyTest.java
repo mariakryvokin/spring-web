@@ -3,6 +3,7 @@ package app.services.discounts;
 import app.models.EventHasAuditorium;
 import app.models.User;
 import app.services.UserService;
+import app.services.discounts.BirthdayStrategy;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
