@@ -56,17 +56,5 @@
     <input type="submit" value="Submit">
 </form>
 
-<form action="/app/user/cart" method="get">
-    User email(registered):<br>
-    <@spring.formInput "user.email"/>
-    <@spring.showErrors "<br>"/>
-    <br><br>
-    User id(NOT registered):<br>
-    <@spring.formInput "user.id"/>
-    <@spring.showErrors "<br>"/>
-    <br><br>
-    <input type="submit" value="Submit">
-</form>
-
 </body>
 </html>

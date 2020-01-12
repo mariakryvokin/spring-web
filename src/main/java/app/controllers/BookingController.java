@@ -60,7 +60,6 @@ public class BookingController {
         });
         model.addAttribute("freeSeatsEntrySet", freeSeats.entrySet());
         model.addAttribute("ticket", new Ticket());
-        model.addAttribute("user", new User());
         return "bookingTicket";
     }
 

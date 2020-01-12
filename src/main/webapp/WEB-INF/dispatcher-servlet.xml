@@ -12,7 +12,7 @@
        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
     <context:component-scan base-package="app"/>
     <mvc:annotation-driven/>
-    <security:http auto-config="true">
+  <!--  <security:http auto-config="true">
         <security:intercept-url pattern="/app/admin/*" access="hasRole('ROLE_ADMIN')" />
         <security:intercept-url pattern="/app/user/*" access="hasRole('ROLE_USER')" />
         <security:form-login login-page="/app/login" />
@@ -20,6 +20,6 @@
 
     <security:authentication-manager>
         <security:authentication-provider user-service-ref='appUserDetailsService'/>
-    </security:authentication-manager>
+    </security:authentication-manager>-->
     <!--    <jpa:repositories base-package="app.repositories"/>-->
 </beans>
