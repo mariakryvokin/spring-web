@@ -14,11 +14,11 @@ public class HomeController {
 
     @GetMapping("/login")
     public String login(){
-        return "login";
+        return "loginForm";
     }
 
     @PostMapping("/login")
     public String doLogin(){
-        return "";
+        return "login";
     }
 }

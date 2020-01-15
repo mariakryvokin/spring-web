@@ -1,6 +1,5 @@
 package app.services.filegeneration;
 
-import app.config.AppConfig;
 import app.models.Event;
 import app.models.Role;
 import app.models.User;
@@ -9,16 +8,10 @@ import app.models.enums.RoleEnum;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Date;
@@ -34,12 +27,14 @@ public class FileGeneration {
 
     private ObjectMapper objectMapper = new ObjectMapper();
 
+    private BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+
     @Test
     public void generateUsersFile() {
         Role role = new Role();
-        role.setName(RoleEnum.USER.name());
-        User userFirst = new User("FirstUserFN", "FirstUserLN", "FUemail@gmail.com", Date.valueOf(LocalDate.now()), "FUpassword", Arrays.asList(role));
-        User userSecond = new User("SecondUserFN", "SecondUserLN", "SUemail@gmail.com", Date.valueOf(LocalDate.now().minusDays(10)), "SUpassword", Arrays.asList(role));
+        role.setName(RoleEnum.RESGISTERED_USER.name());
+        User userFirst = new User("FirstUserFN", "FirstUserLN", "FUemail@gmail.com", Date.valueOf(LocalDate.now()), bCryptPasswordEncoder.encode("FUpassword"), Arrays.asList(role));
+        User userSecond = new User("SecondUserFN", "SecondUserLN", "SUemail@gmail.com", Date.valueOf(LocalDate.now().minusDays(10)), bCryptPasswordEncoder.encode("SUpassword"), Arrays.asList(role));
         try {
             objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
             objectMapper.writer().writeValue(new File("C:\\TMP\\users.json"), Arrays.asList(userFirst,userSecond));

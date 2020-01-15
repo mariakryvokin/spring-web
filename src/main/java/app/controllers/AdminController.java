@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.support.StandardMultipartHttpServletRequest;
 import org.w3c.dom.NodeList;
 
 import java.io.IOException;
@@ -71,11 +72,11 @@ public class AdminController {
 
     @PostMapping("/upload")
     public String doUploadMultipleFiles(@RequestParam("files") MultipartFile[] files, Model model) throws IOException {
-        if (files[0] != null) {
+        if (!(files[0]).isEmpty()) {
             List<User> users = objectMapper.readValue(files[0].getBytes(), objectMapper.getTypeFactory().constructCollectionType(List.class, User.class));
             userService.saveAll(users);
         }
-        if (files[1] != null) {
+        if (!(files[1]).isEmpty()) {
             List<Event> events = objectMapper.readValue(files[1].getBytes(), objectMapper.getTypeFactory().constructCollectionType(List.class, Event.class));
             eventService.saveAll(events);
         }

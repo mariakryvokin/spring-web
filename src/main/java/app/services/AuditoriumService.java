@@ -17,6 +17,10 @@ public class AuditoriumService {
         return auditoriumRepository.findAll();
     }
 
+    public List<Auditorium> getAllByNameIn(List<String> names){
+        return auditoriumRepository.getAllByNameIn(names);
+    }
+
     public Auditorium getByName(String name){
         return auditoriumRepository.getOne(name);
     }

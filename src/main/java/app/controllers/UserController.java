@@ -1,13 +1,11 @@
 package app.controllers;
 
 import app.models.Event;
-import app.models.Role;
 import app.models.User;
 import app.models.enums.RoleEnum;
 import app.services.TicketService;
 import app.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -39,12 +37,7 @@ public class UserController {
 
     @PostMapping("/save")
     public String saveUser(@ModelAttribute("user") User user, Model model){
-        List<Role> roles = new ArrayList<>();
-        Role role = new Role();
-        role.setName(RoleEnum.USER.name());
-        roles.add(role);
-        user.setRoles(roles);
-        userService.save(user);
+        userService.save(user, Arrays.asList(RoleEnum.RESGISTERED_USER));
         return "index";
     }
 

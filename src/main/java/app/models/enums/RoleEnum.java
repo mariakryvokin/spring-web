@@ -1,5 +1,5 @@
 package app.models.enums;
 
 public enum RoleEnum {
-    USER,ADMIN
+    RESGISTERED_USER,BOOKING_MANAGER, ADMIN
 }

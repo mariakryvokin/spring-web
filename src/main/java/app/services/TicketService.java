@@ -1,5 +1,6 @@
 package app.services;
 
+import app.models.Event;
 import app.models.EventHasAuditorium;
 import app.models.Ticket;
 import app.models.User;
@@ -53,5 +54,10 @@ public class TicketService {
 
     public List<Ticket> getCartTicketsByUserIdAndOrderId(Long userId, Long orderId){
         return ticketRepository.findAllByUser_IdAndOrder_Id(userId,orderId);
+    }
+
+
+    public List findAllByEventHasAuditoriumEvent_id(long eventId){
+        return ticketRepository.findAllByEventHasAuditorium_Event_Id(eventId);
     }
 }

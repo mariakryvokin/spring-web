@@ -16,4 +16,6 @@ public interface TicketRepository extends JpaRepository<Ticket,Long> {
     List<Integer> getAllByAuditoriumNameAndAirDateTime(String auditoriumName, Timestamp airDateTime);
 
     List<Ticket> findAllByUser_IdAndOrder_Id(Long userId, Long orderId);
+
+    List<Ticket> findAllByEventHasAuditorium_Event_Id(long eventId);
 }
