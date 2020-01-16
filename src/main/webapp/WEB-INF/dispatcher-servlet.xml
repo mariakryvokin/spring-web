@@ -15,13 +15,22 @@
     <security:http auto-config="true">
         <security:intercept-url pattern="/app/admin/*" access="hasRole('ROLE_ADMIN')" />
         <security:intercept-url pattern="/app/user/*" access="hasRole('ROLE_RESGISTERED_USER')" />
-        <security:form-login login-page='/app/login' authentication-success-handler-ref="authenticationSuccessHandlerImpl"/>
+        <security:form-login
+                login-page='/app/login'
+                authentication-success-handler-ref="authenticationSuccessHandlerImpl"
+                authentication-failure-url="/app/login"
+                password-parameter="password"
+                username-parameter="email"
+        />
+        <!--      login-page='/app/login'
+         authentication-success-handler-ref="authenticationSuccessHandlerImpl"
+       -->
+
         <security:remember-me remember-me-parameter="" key="unique" user-service-ref="userDetailsServiceImpl"/>
 </security:http>
 
     <security:authentication-manager>
-        <security:authentication-provider  user-service-ref='userDetailsServiceImpl'>
-            <security:password-encoder hash="bcrypt"/>
+        <security:authentication-provider  ref="authProvider">
         </security:authentication-provider>
     </security:authentication-manager>
     <!--    <jpa:repositories base-package="app.repositories"/>-->

@@ -17,7 +17,7 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) throws IOException, ServletException {
         Collection<GrantedAuthority> roles = (Collection<GrantedAuthority>) authentication.getAuthorities();
-        response.sendRedirect("");
+        response.sendRedirect("/app/admin/upload");
     }
 
     @Override
