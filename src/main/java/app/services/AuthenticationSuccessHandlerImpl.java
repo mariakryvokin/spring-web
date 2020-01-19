@@ -14,14 +14,10 @@ import java.util.Collection;
 
 @Component
 public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHandler {
-    @Override
-    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) throws IOException, ServletException {
-        Collection<GrantedAuthority> roles = (Collection<GrantedAuthority>) authentication.getAuthorities();
-        response.sendRedirect("/app/admin/upload");
-    }
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
-
+        Collection<GrantedAuthority> roles = (Collection<GrantedAuthority>) authentication.getAuthorities();
+        httpServletResponse.sendRedirect("/app/user/id");
     }
 }

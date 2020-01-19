@@ -9,19 +9,12 @@
 <body>
 	<h1>Spring Security - Sign In</h1>
 
-	<div style="color: red">${message}</div>
-
-	<form class="login-form" action="/login" method="post">
-			<label for="email">Email: </label>
-		 	<input id="email" name="email" size="20" maxlength="50" type="text" />
-
-			<label for="password">Password: </label>
-			<input id="password" name="password" size="20" maxlength="50" type="password" />
-
-			<label for ="remember-me">Remember Me:</label>
-            <input type="checkbox" name="remember-me"/></td>
-
-			<input type="submit" value="Login" />
+	<form method="post" action="/app/do-login">
+		<label>Email:  </label>
+		<input type="text" name="email"><br />
+		<label>Password: </label>
+		<input type="password" name="password" ><br />
+		<button type="submit">Submi</button>
 	</form>
 </body>
 </html>

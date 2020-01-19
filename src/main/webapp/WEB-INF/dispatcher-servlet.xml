@@ -13,19 +13,18 @@
     <context:component-scan base-package="app"/>
     <mvc:annotation-driven/>
     <security:http auto-config="true">
-        <security:intercept-url pattern="/app/admin/*" access="hasRole('ROLE_ADMIN')" />
-        <security:intercept-url pattern="/app/user/*" access="hasRole('ROLE_RESGISTERED_USER')" />
+        <security:csrf disabled="true"/>
+        <security:logout />
+        <security:intercept-url pattern="/app/admin/**" access="hasAnyRole('ADMIN')" />
+        <security:intercept-url pattern="/app/user/**" access="hasAnyRole('RESGISTERED_USER', 'ADMIN')" />
         <security:form-login
                 login-page='/app/login'
                 authentication-success-handler-ref="authenticationSuccessHandlerImpl"
+                login-processing-url="/app/do-login"
                 authentication-failure-url="/app/login"
                 password-parameter="password"
                 username-parameter="email"
         />
-        <!--      login-page='/app/login'
-         authentication-success-handler-ref="authenticationSuccessHandlerImpl"
-       -->
-
         <security:remember-me remember-me-parameter="" key="unique" user-service-ref="userDetailsServiceImpl"/>
 </security:http>
 
