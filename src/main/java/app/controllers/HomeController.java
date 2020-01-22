@@ -1,8 +1,9 @@
 package app.controllers;
 
+import app.models.User;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class HomeController {
@@ -16,9 +17,12 @@ public class HomeController {
     public String login(){
         return "loginPage";
     }
-/*
-    @PostMapping("/login")
-    public String doLogin(){
-        return "login";
-    }*/
+
+    @GetMapping("/register")
+    public String registerUser(Model model){
+        model.addAttribute("user", new User());
+        return "register";
+    }
+
+
 }

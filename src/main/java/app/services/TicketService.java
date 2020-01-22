@@ -1,6 +1,5 @@
 package app.services;
 
-import app.models.Event;
 import app.models.EventHasAuditorium;
 import app.models.Ticket;
 import app.models.User;
@@ -8,6 +7,7 @@ import app.models.enums.Rating;
 import app.repositories.TicketRepository;
 import app.repositories.VipSeatRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -57,7 +57,8 @@ public class TicketService {
     }
 
 
-    public List findAllByEventHasAuditoriumEvent_id(long eventId){
+    @PreAuthorize("hasAuthority('BOOKING_MANAGER')")
+    public List findAllByEventHasAuditorium_Event_Id(long eventId){
         return ticketRepository.findAllByEventHasAuditorium_Event_Id(eventId);
     }
 }

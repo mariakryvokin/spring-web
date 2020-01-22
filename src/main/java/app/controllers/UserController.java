@@ -6,6 +6,7 @@ import app.models.enums.RoleEnum;
 import app.services.TicketService;
 import app.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,19 +27,21 @@ public class UserController {
     private UserService userService;
     @Autowired
     private TicketService ticketService;
+    @Autowired
+    private PasswordEncoder bCryptPasswordEncoder;
 
     private long id =0;
 
-    @GetMapping("/register")
-    public String registerUser(Model model){
-        model.addAttribute("user", new User());
-        return "register";
+    @GetMapping("/main")
+    public String main(){
+        return "/user/main";
     }
 
     @PostMapping("/save")
     public String saveUser(@ModelAttribute("user") User user, Model model){
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userService.save(user, Arrays.asList(RoleEnum.RESGISTERED_USER));
-        return "index";
+        return "main";
     }
 
     @PostMapping(value = "/cart", headers = "accept=application/pdf")

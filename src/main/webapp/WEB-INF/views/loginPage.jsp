@@ -14,7 +14,8 @@
 		<input type="text" name="email"><br />
 		<label>Password: </label>
 		<input type="password" name="password" ><br />
-		<button type="submit">Submi</button>
+		<input type="checkbox" name="remember-me"><br/>
+		<button type="submit">Submit</button>
 	</form>
 </body>
 </html>

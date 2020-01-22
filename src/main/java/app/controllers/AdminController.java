@@ -45,6 +45,11 @@ public class AdminController {
         return "addEvent";
     }
 
+    @GetMapping("/main")
+    public String main(){
+        return "/admin/main";
+    }
+
     @PostMapping("/event")
     public String addEvent(@ModelAttribute Event event) {
         eventService.save(event);

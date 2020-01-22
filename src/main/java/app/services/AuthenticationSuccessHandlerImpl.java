@@ -1,11 +1,12 @@
 package app.services;
 
+import app.models.enums.RoleEnum;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,6 +19,10 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
         Collection<GrantedAuthority> roles = (Collection<GrantedAuthority>) authentication.getAuthorities();
-        httpServletResponse.sendRedirect("/app/user/id");
+        if(roles.contains(new SimpleGrantedAuthority(RoleEnum.ADMIN.name()))){
+            httpServletResponse.sendRedirect("/app/admin/main");
+        } else if (roles.contains(new SimpleGrantedAuthority(RoleEnum.RESGISTERED_USER.name()))){
+            httpServletResponse.sendRedirect("/app/user/main");
+        }
     }
 }
