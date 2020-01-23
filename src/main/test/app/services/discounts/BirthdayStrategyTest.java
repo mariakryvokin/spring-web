@@ -3,22 +3,25 @@ package app.services.discounts;
 import app.models.EventHasAuditorium;
 import app.models.User;
 import app.services.UserService;
-import app.services.discounts.BirthdayStrategy;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.stream.Stream;
 
+@ExtendWith(MockitoExtension.class)
 public class BirthdayStrategyTest {
 
     @Mock
@@ -29,7 +32,6 @@ public class BirthdayStrategyTest {
 
     @BeforeEach
     public void init(){
-        MockitoAnnotations.initMocks(this);
         Mockito.when(userService.exists(Mockito.any())).thenReturn(true);
     }
 
