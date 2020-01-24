@@ -1,5 +1,4 @@
 <html>
-<a href="/app/logout">Logout</a>
 <p>Hello</p>
 <a href="/app/">Register</a>
 <a href="/app/login">Login</a>

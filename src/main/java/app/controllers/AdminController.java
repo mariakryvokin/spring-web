@@ -4,13 +4,11 @@ import app.models.Event;
 import app.models.EventHasAuditorium;
 import app.models.User;
 import app.models.enums.Rating;
-import app.services.AuditoriumService;
-import app.services.EventHasAuditoriumService;
-import app.services.EventService;
-import app.services.UserService;
+import app.services.*;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +18,9 @@ import org.w3c.dom.NodeList;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Controller
@@ -37,6 +37,8 @@ public class AdminController {
     private ObjectMapper objectMapper;
     @Autowired
     private UserService userService;
+    @Autowired
+    private TicketService ticketService;
 
     @GetMapping("/event")
     public String showEvent(Model model) {
@@ -46,7 +48,7 @@ public class AdminController {
     }
 
     @GetMapping("/main")
-    public String main(){
+    public String main() {
         return "/admin/main";
     }
 
@@ -86,6 +88,13 @@ public class AdminController {
             eventService.saveAll(events);
         }
         return "main";
+    }
+
+    @PreAuthorize("hasAuthority('BOOKING_MANAGER')")
+    @PostMapping("/tickets/{eventId}")
+    public String getTicketsForEvent(@PathVariable("eventId") long eventId, Model model) {
+        model.addAttribute("ticketsList", ticketService.findAllByEventHasAuditorium_Event_Id(eventId));
+        return "findTicketsForEvent";
     }
 
 }

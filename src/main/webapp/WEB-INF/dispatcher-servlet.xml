@@ -15,7 +15,7 @@
     <security:global-method-security secured-annotations="enabled" pre-post-annotations="enabled"></security:global-method-security>
     <security:http auto-config="true" >
         <security:session-management>
-            <security:concurrency-control max-sessions="1"/>
+            <security:concurrency-control max-sessions="2"/>
         </security:session-management>
         <security:csrf disabled="true"/>
         <security:logout logout-url="/app/logout"  logout-success-url="/app/"/>

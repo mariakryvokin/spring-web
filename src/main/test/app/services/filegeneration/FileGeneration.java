@@ -31,13 +31,18 @@ public class FileGeneration {
 
     @Test
     public void generateUsersFile() {
-        Role role = new Role();
-        role.setName(RoleEnum.RESGISTERED_USER.name());
-        User userFirst = new User("FirstUserFN", "FirstUserLN", "FUemail@gmail.com", Date.valueOf(LocalDate.now()), bCryptPasswordEncoder.encode("FUpassword"), Arrays.asList(role));
-        User userSecond = new User("SecondUserFN", "SecondUserLN", "SUemail@gmail.com", Date.valueOf(LocalDate.now().minusDays(10)), bCryptPasswordEncoder.encode("SUpassword"), Arrays.asList(role));
+        Role registeredUserRole = new Role();
+        Role bookingManager = new Role();
+        Role admin = new Role();
+        registeredUserRole.setName(RoleEnum.RESGISTERED_USER.name());
+        bookingManager.setName(RoleEnum.BOOKING_MANAGER.name());
+        admin.setName(RoleEnum.ADMIN.name());
+        User registeredUser = new User("FirstUserFN", "FirstUserLN", "FUemail@gmail.com", Date.valueOf(LocalDate.now()), bCryptPasswordEncoder.encode("FUpassword"), Arrays.asList(registeredUserRole));
+        User adminUser = new User("SecondUserFN", "SecondUserLN", "SUemail@gmail.com", Date.valueOf(LocalDate.now().minusDays(10)), bCryptPasswordEncoder.encode("SUpassword"), Arrays.asList(admin));
+        User userBookingManager = new User("ThirdUserFN", "SecondUserLN","TUemail@gmail.com",Date.valueOf(LocalDate.now().plusDays(10)), bCryptPasswordEncoder.encode("TUpassword"), Arrays.asList(admin, bookingManager));
         try {
             objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
-            objectMapper.writer().writeValue(new File("C:\\TMP\\users.json"), Arrays.asList(userFirst,userSecond));
+            objectMapper.writer().writeValue(new File("C:\\TMP\\users.json"), Arrays.asList(registeredUser,adminUser,userBookingManager));
         } catch (IOException e) {
             e.printStackTrace();
         }
