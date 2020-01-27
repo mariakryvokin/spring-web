@@ -90,7 +90,7 @@ public class AdminController {
         return "main";
     }
 
-    @PreAuthorize("hasAuthority('BOOKING_MANAGER')")
+   // @PreAuthorize("hasAuthority('BOOKING_MANAGER')")
     @PostMapping("/tickets/{eventId}")
     public String getTicketsForEvent(@PathVariable("eventId") long eventId, Model model) {
         model.addAttribute("ticketsList", ticketService.findAllByEventHasAuditorium_Event_Id(eventId));

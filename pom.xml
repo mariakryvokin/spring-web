@@ -17,6 +17,7 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <spring.version>5.1.5.RELEASE</spring.version>
         <spring.security>5.1.6.RELEASE</spring.security>
+        <spring.security.test>5.2.1.RELEASE</spring.security.test>
         <hibernate.version>5.4.1.Final</hibernate.version>
     </properties>
 
@@ -100,6 +101,13 @@
         </dependency>
 
         <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-test</artifactId>
+            <version>${spring.security.test}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>jsp-api</artifactId>
             <version>2.0</version>
@@ -152,6 +160,12 @@
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
             <version>4.0.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.pdfbox</groupId>
+            <artifactId>pdfbox</artifactId>
+            <version>2.0.4</version>
         </dependency>
 
     </dependencies>

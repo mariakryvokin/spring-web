@@ -1,6 +1,9 @@
 package app.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 @Entity
@@ -15,14 +18,17 @@ public class Ticket {
     @Column(name = "date_time")
     private Timestamp timestamp;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "orders_id")
     private Order order;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "users_id")
     private User user;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumns({
             @JoinColumn(name = "event_has_auditoriums_auditoriums_name", referencedColumnName = "auditoriums_name"),

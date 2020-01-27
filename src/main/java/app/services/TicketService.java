@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -57,5 +58,9 @@ public class TicketService {
 
     public List findAllByEventHasAuditorium_Event_Id(long eventId){
         return ticketRepository.findAllByEventHasAuditorium_Event_Id(eventId);
+    }
+
+    public Optional<Ticket> getTicketById(Long id){
+        return ticketRepository.findById(1L);
     }
 }

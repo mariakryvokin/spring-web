@@ -11,8 +11,9 @@
        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
     <context:component-scan base-package="app"/>
-    <mvc:annotation-driven/>
-    <security:global-method-security secured-annotations="enabled" pre-post-annotations="enabled"></security:global-method-security>
+    <mvc:annotation-driven>
+    </mvc:annotation-driven>
+<!--    <security:global-method-security secured-annotations="enabled" pre-post-annotations="enabled"></security:global-method-security>
     <security:http auto-config="true" >
         <security:session-management>
             <security:concurrency-control max-sessions="2"/>
@@ -35,6 +36,6 @@
     <security:authentication-manager>
         <security:authentication-provider  ref="authProvider">
         </security:authentication-provider>
-    </security:authentication-manager>
+    </security:authentication-manager>-->
     <!--    <jpa:repositories base-package="app.repositories"/>-->
 </beans>
