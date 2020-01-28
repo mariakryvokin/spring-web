@@ -5,7 +5,6 @@ import app.models.Ticket;
 import app.models.dto.TicketDto;
 import app.models.errors.NoRecordFoundExeption;
 import app.services.TicketService;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -20,14 +19,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-import sun.misc.IOUtils;
 
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Optional;
 
 @RestController
@@ -40,7 +36,7 @@ public class TicketRestController {
     private ObjectMapper objectMapper;
 
     @GetMapping(value = "/download/{id}", produces = "application/pdf")
-    public byte[] downloadTicket(@PathVariable("id") Long id) {
+    public ResponseEntity<InputStreamResource> downloadTicket(@PathVariable("id") Long id) {
         try {
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.parseMediaType("application/pdf"));
@@ -48,14 +44,10 @@ public class TicketRestController {
             if (ticket.isPresent()) {
                 TicketDto ticketDto = new TicketDto(ticket.get().getId(),ticket.get().getSeat(), ticket.get().getTimestamp(),
                         ticket.get().getEventHasAuditorium().getEvent().getName(), ticket.get().getEventHasAuditorium().getAirDate(),ticket.get().getEventHasAuditorium().getAuditorium().getName());
-
-                InputStream inputStream = createPdf(ticketDto);
-                return new byte[inputStream.available()];
-                //return new ResponseEntity<InputStreamResource>(new InputStreamResource(new ByteArrayInputStream(objectMapper.writeValueAsBytes(ticket.get()))), headers, HttpStatus.OK);
+                return new ResponseEntity<>(new InputStreamResource(createPdf(ticketDto)), headers, HttpStatus.OK);
             } else {
                 throw new NoRecordFoundExeption("not found ticket with id " + id);
             }
-
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -67,7 +59,7 @@ public class TicketRestController {
         return null;
     }
 
-    private InputStream createPdf(TicketDto ticket) throws IOException, DocumentException {
+    private ByteArrayInputStream createPdf(TicketDto ticket) throws IOException, DocumentException {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         Document document = new Document();
         PdfWriter.getInstance(document, byteArrayOutputStream);
