@@ -1,6 +1,9 @@
 package app.models;
 
 import app.models.compositePK.EventHasAuditoriumPK;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -17,11 +20,11 @@ public class EventHasAuditorium {
     private Timestamp airDate;
 
     @Id
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "auditoriums_name")
     private Auditorium auditorium;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "events_id")
     private Event event;
 

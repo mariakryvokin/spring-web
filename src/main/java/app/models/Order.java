@@ -11,7 +11,7 @@ public class Order {
 
     private double price;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "users_id")
     private User user;
 

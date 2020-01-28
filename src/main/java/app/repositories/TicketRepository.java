@@ -3,9 +3,11 @@ package app.repositories;
 import app.models.Ticket;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Optional;
 
 public interface TicketRepository extends JpaRepository<Ticket,Long> {
 
@@ -18,4 +20,7 @@ public interface TicketRepository extends JpaRepository<Ticket,Long> {
     List<Ticket> findAllByUser_IdAndOrder_Id(Long userId, Long orderId);
 
     List<Ticket> findAllByEventHasAuditorium_Event_Id(long eventId);
+
+    //@Query("select t from Ticket t join fetch t.eventHasAuditorium e")
+    //Optional<Ticket> findById(Long id);
 }

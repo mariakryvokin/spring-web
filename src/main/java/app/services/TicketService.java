@@ -8,12 +8,16 @@ import app.repositories.TicketRepository;
 import app.repositories.VipSeatRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@PersistenceContext(type = PersistenceContextType.EXTENDED)
 @Service
 public class TicketService {
 
@@ -60,7 +64,8 @@ public class TicketService {
         return ticketRepository.findAllByEventHasAuditorium_Event_Id(eventId);
     }
 
+
     public Optional<Ticket> getTicketById(Long id){
-        return ticketRepository.findById(1L);
+        return ticketRepository.findById(id);
     }
 }
