@@ -2,7 +2,7 @@ package app.models.dto;
 
 import java.sql.Timestamp;
 
-public class TicketDto {
+public class TicketPdfDto {
 
     private long Id;
     private long seat;
@@ -11,10 +11,10 @@ public class TicketDto {
     private Timestamp airDate;
     private String auditoriumName;
 
-    public TicketDto() {
+    public TicketPdfDto() {
     }
 
-    public TicketDto(long id, long seat, Timestamp purchaseTimestamp, String eventName, Timestamp airDate, String auditoriumName) {
+    public TicketPdfDto(long id, long seat, Timestamp purchaseTimestamp, String eventName, Timestamp airDate, String auditoriumName) {
         Id = id;
         this.seat = seat;
         this.purchaseTimestamp = purchaseTimestamp;
@@ -70,4 +70,5 @@ public class TicketDto {
     public void setAuditoriumName(String auditoriumName) {
         this.auditoriumName = auditoriumName;
     }
+
 }

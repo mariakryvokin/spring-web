@@ -1,5 +1,6 @@
 package app.repositories;
 
+import app.models.Order;
 import app.models.Ticket;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -20,6 +21,8 @@ public interface TicketRepository extends JpaRepository<Ticket,Long> {
     List<Ticket> findAllByUser_IdAndOrder_Id(Long userId, Long orderId);
 
     List<Ticket> findAllByEventHasAuditorium_Event_Id(long eventId);
+
+    List<Ticket> findAllByOrder(Order order);
 
     //@Query("select t from Ticket t join fetch t.eventHasAuditorium e")
     //Optional<Ticket> findById(Long id);

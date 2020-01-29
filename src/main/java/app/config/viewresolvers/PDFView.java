@@ -1,4 +1,4 @@
-package app.config;
+package app.config.viewresolvers;
 
 import app.models.Ticket;
 import com.lowagie.text.BadElementException;
