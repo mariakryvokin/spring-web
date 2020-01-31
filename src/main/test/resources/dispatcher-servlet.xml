@@ -11,30 +11,35 @@
        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
     <context:component-scan base-package="app"/>
-    <mvc:annotation-driven/>
-    <security:global-method-security secured-annotations="enabled" pre-post-annotations="enabled"></security:global-method-security>
-    <security:http auto-config="true" >
-        <security:session-management>
-            <security:concurrency-control max-sessions="2"/>
-        </security:session-management>
-        <security:csrf disabled="true"/>
-        <security:logout logout-url="/app/logout"  logout-success-url="/app/"/>
-        <security:intercept-url pattern="/app/admin/**" access="hasAuthority('ADMIN')" />
-        <security:intercept-url pattern="/app/user/**" access="hasAnyAuthority('RESGISTERED_USER', 'ADMIN')" />
-        <security:form-login
-                login-page='/app/login'
-                authentication-success-handler-ref="authenticationSuccessHandlerImpl"
-                login-processing-url="/app/do-login"
-                authentication-failure-url="/app/login"
-                password-parameter="password"
-                username-parameter="email"
-        />
-        <security:remember-me remember-me-parameter="remember-me" key="unique" user-service-ref="userDetailsServiceImpl"/>
+    <mvc:annotation-driven>
+        <mvc:message-converters>
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
+            <bean class="app.controllers.messageconverters.TicketPdfConverter"/>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+    <!--    <security:global-method-security secured-annotations="enabled" pre-post-annotations="enabled"></security:global-method-security>
+        <security:http auto-config="true" >
+            <security:session-management>
+                <security:concurrency-control max-sessions="2"/>
+            </security:session-management>
+            <security:csrf disabled="true"/>
+            <security:logout logout-url="/app/logout"  logout-success-url="/app/"/>
+            <security:intercept-url pattern="/app/admin/**" access="hasAuthority('ADMIN')" />
+            <security:intercept-url pattern="/app/user/**" access="hasAnyAuthority('RESGISTERED_USER', 'ADMIN')" />
+            <security:form-login
+                    login-page='/app/login'
+                    authentication-success-handler-ref="authenticationSuccessHandlerImpl"
+                    login-processing-url="/app/do-login"
+                    authentication-failure-url="/app/login"
+                    password-parameter="password"
+                    username-parameter="email"
+            />
+            <security:remember-me remember-me-parameter="remember-me" key="unique" user-service-ref="userDetailsServiceImpl"/>
     </security:http>
 
-    <security:authentication-manager>
-        <security:authentication-provider  ref="authProvider">
-        </security:authentication-provider>
-    </security:authentication-manager>
+        <security:authentication-manager>
+            <security:authentication-provider  ref="authProvider">
+            </security:authentication-provider>
+        </security:authentication-manager>-->
     <!--    <jpa:repositories base-package="app.repositories"/>-->
 </beans>

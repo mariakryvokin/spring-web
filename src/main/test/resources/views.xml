@@ -4,7 +4,7 @@
        xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="cart" class="app.config.PDFView">
+    <bean id="cart" class="app.config.viewresolvers.PDFView">
 
     </bean>
 </beans>

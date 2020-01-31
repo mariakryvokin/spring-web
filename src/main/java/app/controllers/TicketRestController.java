@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -29,14 +30,14 @@ public class TicketRestController {
     private static Logger logger = LogManager.getLogger();
 
     @GetMapping(value = "/download/{id}", produces = "application/pdf")
-    @ResponseStatus(HttpStatus.OK)
-    public TicketPdfDto downloadTicket(@PathVariable("id") Long id) {
+    public ResponseEntity<TicketPdfDto> downloadTicket(@PathVariable("id") Long id) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.parseMediaType("application/pdf"));
         Optional<Ticket> ticket = ticketService.getTicketById(id);
         if (ticket.isPresent()) {
-            return new TicketPdfDto(ticket.get().getId(), ticket.get().getSeat(), ticket.get().getTimestamp(),
-                    ticket.get().getEventHasAuditorium().getEvent().getName(), ticket.get().getEventHasAuditorium().getAirDate(), ticket.get().getEventHasAuditorium().getAuditorium().getName());
+            return new ResponseEntity<TicketPdfDto>(new TicketPdfDto(ticket.get().getId(), ticket.get().getSeat(), ticket.get().getTimestamp(),
+                    ticket.get().getEventHasAuditorium().getEvent().getName(), ticket.get().getEventHasAuditorium().getAirDate(), ticket.get().getEventHasAuditorium().getAuditorium().getName()),
+                    headers, HttpStatus.OK);
         }
         else{
             throw new RuntimeException("No ticket found by id: " + id);
