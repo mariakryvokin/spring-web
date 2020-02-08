@@ -4,8 +4,14 @@ import app.models.enums.Rating;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.List;
 
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name = "event")
 @Entity
 @Table(name = "events")
 public class Event {
@@ -18,16 +24,20 @@ public class Event {
         this.rating = rating;
     }
 
+    @XmlElement
     @JsonIgnore
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @XmlElement
     private String name;
 
+    @XmlElement
     @Column(name = "base_price")
     private double basePrice;
 
+    @XmlElement
     @Enumerated(EnumType.STRING)
     private Rating rating;
 

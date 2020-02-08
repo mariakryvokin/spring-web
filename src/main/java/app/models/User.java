@@ -1,23 +1,13 @@
 package app.models;
 
-/*import app.models.jbax.DateAdapter;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;*/
-
-import app.models.jbax.DateAdapter;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.*;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.sql.Date;
 import java.util.List;
-/*import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-import java.sql.Date;
-import java.util.List;*/
 
-//@XmlType(name = "user", propOrder = {"id", "firstName", "lastName", "email", "birthday", "roles"})
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "user")
 @Entity(name = "users")
@@ -26,7 +16,6 @@ public class User {
     public User() {
     }
 
-/*
     public User(String firstName, String lastName, String email, Date birthday, String password, List<Role> roles) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -35,7 +24,6 @@ public class User {
         this.password = password;
         this.roles = roles;
     }
-*/
 
     @XmlElement
     @JsonIgnore
@@ -55,18 +43,19 @@ public class User {
     private String email;
 
 
-    @XmlJavaTypeAdapter(DateAdapter.class)
+    //@XmlJavaTypeAdapter(DateAdapter.class)
     @XmlElement
-   // @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss")
-    //@Column(name = "birthday")
+    @XmlSchemaType(name = "date")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss")
+    @Column(name = "birthday")
     private Date birthday;
 
-   /* @XmlTransient
+    @XmlElement
     @Column(name = "password")
     private String password;
 
-    @XmlElementWrapper(name = "usersRoles")
-    @XmlElement(name = "role")
+   // @XmlElementWrapper(name = "usersRoles")
+    @XmlElement
     @ManyToMany()
     @JoinTable(
             name = "users_has_roles",
@@ -124,14 +113,14 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
-*//*
+
     public Date getBirthday() {
         return birthday;
     }
 
     public void setBirthday(Date birthday) {
         this.birthday = birthday;
-    }*//*
+    }
 
     public String getPassword() {
         return password;
@@ -155,6 +144,6 @@ public class User {
 
     public void setTickets(List<Ticket> tickets) {
         this.tickets = tickets;
-    }*/
+    }
 }
 
